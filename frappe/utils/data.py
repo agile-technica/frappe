@@ -372,7 +372,12 @@ def round_based_on_smallest_currency_fraction(value, currency, precision=2):
 
 	if smallest_currency_fraction_value:
 		remainder_val = remainder(value, smallest_currency_fraction_value, precision)
-		if remainder_val > (smallest_currency_fraction_value / 2):
+		if remainder_val == (smallest_currency_fraction_value / 2):
+			if value < 0:
+				value -= remainder_val
+			else:
+				value += remainder_val
+		elif remainder_val > (smallest_currency_fraction_value / 2):
 			value += smallest_currency_fraction_value - remainder_val
 		else:
 			value -= remainder_val
